@@ -10,15 +10,18 @@ class Enigma:
 
 
     def encrypt(self, message):
+        original_wheels = self.wheels.copy()
         encrypted_count = 0
         encrypted_message = ""
-        while letter in message:
+        for letter in message:
             if letter.islower():
-                encrypted_message = encrypted_message + encrypt_lowercase_letter(self, letter)
+                encrypted_message += encrypt_lowercase_letter(self, letter)
                 encrypted_count += 1
             else:
-                encrypted_message = encrypted_message + letter
+                encrypted_message += letter
             update_wheels(encrypted_count)
+        self.wheels = original_wheels.copy()
+
 
     def update_wheels(self,encrypted_count):
         # update W1
