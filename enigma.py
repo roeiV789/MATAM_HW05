@@ -1,12 +1,8 @@
-import json
+
 
 import json
 
 class Enigma:
-    def __init__(self, hash_map, wheels, reflector_map):
-    hash_map ={}
-    wheels_list = [0] * 3
-    reflector_map = {}
 
     def _init_(self, hash_map, wheels, reflector_map):
         self.hash_map = hash_map
@@ -49,7 +45,8 @@ def load_enigma_from_path(path):
         with open(path, 'r') as json_file:
             json_dict = json.load(json_file)
             return Enigma(json_dict["hash_map"], json_dict["wheels"], json_dict["reflector_map"])
-    catch: JSONFileException
+    c:
+    raise JSONFileException
 
 def encrypt_lowercase_letter(enigma, letter):
     i = enigma.hash_map(letter)
@@ -71,3 +68,5 @@ def encrypt_lowercase_letter(enigma, letter):
     i = i % 26
     c3 = enigma.hash_map(i)
     return c3
+class JSONFileException(Exception):
+    pass
