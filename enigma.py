@@ -54,13 +54,13 @@ def load_enigma_from_path(path):
 
 def encrypt_lowercase_letter(enigma, letter):
     i = enigma.hash_map(letter)
-    wheels_value = ((2 * enigma.wheels[0]) - enigma.wheels[1] + enigma.wheels[2])
-    if wheels_value > 0:
-        i += 1
-    else:
+    wheels_value = ((2 * enigma.wheels[0]) - enigma.wheels[1] + enigma.wheels[2]) % 26
+    if wheels_value != 0:
         i += wheels_value
+    else:
+        i += 1
 
-    i = i % 26
+    i %= 26
     c1 = enigma.hash_map(i)
     c2 = enigma.reflector_map[c1]
 
@@ -69,6 +69,6 @@ def encrypt_lowercase_letter(enigma, letter):
         i -= 1
     else:
         i -= wheels_value
-    i = i % 26
+    i %= 26
     c3 = enigma.hash_map(i)
-    return c3
+    return c3
