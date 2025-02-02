@@ -48,7 +48,9 @@ def load_enigma_from_path(path):
         with open(path, 'r') as json_file:
             json_dict = json.load(json_file)
             return Enigma(json_dict["hash_map"], json_dict["wheels"], json_dict["reflector_map"])
-    catch: JSONFileException
+    except Exception as e:
+        raise JSONFileException
+
 
 def encrypt_lowercase_letter(enigma, letter):
     i = enigma.hash_map(letter)
