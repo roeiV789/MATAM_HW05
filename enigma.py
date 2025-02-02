@@ -1,5 +1,8 @@
 
 import json
+import sys
+
+# ============ ENIGMA ============
 
 class Enigma:
 
@@ -21,6 +24,7 @@ class Enigma:
                 encrypted_message += letter
             update_wheels(encrypted_count)
         self.wheels = original_wheels.copy()
+        return encrypted_message
 
 
     def update_wheels(self,encrypted_count):
@@ -43,6 +47,14 @@ class Enigma:
             self.wheels[2] = 0
 
 
+# ============ JSONFileException ============
+
+class JSONFileException(Exception):
+    pass
+
+
+# ============ OTHER FUNCTIONS ============
+
 def load_enigma_from_path(path):
     try:
         with open(path, 'r') as json_file:
@@ -50,6 +62,7 @@ def load_enigma_from_path(path):
             return Enigma(json_dict["hash_map"], json_dict["wheels"], json_dict["reflector_map"])
     except Exception:
         raise JSONFileException
+
 
 def encrypt_lowercase_letter(enigma, letter):
     i = enigma.hash_map(letter)
@@ -72,6 +85,25 @@ def encrypt_lowercase_letter(enigma, letter):
     c3 = enigma.hash_map(i)
     return c3
 
-class JSONFileException(Exception):
-    pass
-
+def get_params():
+    params = sys.argv
+    for i in range(1, len(args), 2):
+        if i + 1 >= len(args):
+            raise ###
+        if args[i] == '-c':
+            config_path = args[i + 1]
+        elif args[i] == '-i':
+            input_path = args[i + 1]
+        elif args[i] == '-o':
+            output_path == args[i + 1]
+        else:
+            raise ###
+    if not config_path or not input_path:
+        raise
+    if not output_path:
+        output_path = sys.stdout
+    return config_path, input_path, output_path
+    
+    
+def terminate():
+    
