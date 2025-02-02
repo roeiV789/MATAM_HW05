@@ -2,14 +2,12 @@
 import json
 
 class Enigma:
-    hash_map ={}
-    wheels_list = [0] * 3
-    reflector_map = {}
 
-    def _init_(self, hash_map, wheels, reflector_map):
+    def init(self, hash_map, wheels, reflector_map):
         self.hash_map = hash_map
         self.wheels = wheels
         self.reflector_map = reflector_map
+
 
     def encrypt(self, message):
         encrypted_count = 0
