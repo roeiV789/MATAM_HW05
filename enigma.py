@@ -2,6 +2,9 @@
 import json
 import sys
 
+get_params_exit_messege = "Usage: python3 enigma.py -c <config_file> -i <input_file> -o <output_file>"
+script_exit_messege = "The enigma script has encountered an error"
+
 # ============ ENIGMA ============
 
 class Enigma:
@@ -87,23 +90,43 @@ def encrypt_lowercase_letter(enigma, letter):
 
 def get_params():
     params = sys.argv
-    for i in range(1, len(args), 2):
-        if i + 1 >= len(args):
-            raise ###
-        if args[i] == '-c':
-            config_path = args[i + 1]
-        elif args[i] == '-i':
-            input_path = args[i + 1]
-        elif args[i] == '-o':
-            output_path == args[i + 1]
+    for i in range(1, len(params), 2):
+        if i + 1 >= len(params):
+            terminate(get_params_exit_messege)
+        if params[i] == '-c':
+            config_path = params[i + 1]
+        elif params[i] == '-i':
+            input_path = params[i + 1]
+        elif params[i] == '-o':
+            output_path == params[i + 1]
         else:
-            raise ###
+            terminate(get_params_exit_messege)
     if not config_path or not input_path:
-        raise
+        terminate(get_params_exit_messege)
     if not output_path:
         output_path = sys.stdout
     return config_path, input_path, output_path
     
     
-def terminate():
-    
+def terminate(messege):
+    print(messege)
+    exit(1)
+
+
+if __name__ == "__main__":
+        config_file, input_path, output_path = get_params()
+        enigma = load_enigma_from_path(config_file)
+        try:
+            with open(input_path, 'r') as input:
+                encrypted_str = enigma.encrypt(input)
+        except Exception:
+            terminate(script_exit_messege)
+        if not output_path == sys.stdout:
+            try:
+                with open(output_path, 'w') as output:
+                    output.write(encrypted_str)
+            except Exception:
+                terminate(script_exit_messege)
+        else:
+            print(encrypted_str)
+C
