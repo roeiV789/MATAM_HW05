@@ -1,10 +1,6 @@
 import json
 
 class Enigma:
-    hash_map ={}
-    wheels_list = [0] * 3
-    reflector_map = {}
-
     def __init__(self, hash_map, wheels, reflector_map):
         self.hash_map = hash_map
         self.wheels = wheels
