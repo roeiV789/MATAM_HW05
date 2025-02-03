@@ -100,7 +100,7 @@ def load_enigma_from_path(path):
 def get_params():
     params = sys.argv
     config_path = None
-    input_file = None
+    input_path = None
     output_path = sys.stdout
     for i in range(1, len(params), 2):
         if i + 1 >= len(params):
@@ -118,8 +118,8 @@ def get_params():
     return config_path, input_path, output_path
     
     
-def terminate(messege):
-    print(messege)
+def terminate(message):
+    print(message)
     exit(1)
 
 
