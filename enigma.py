@@ -35,7 +35,6 @@ class Enigma:
             else:
                 encrypted_message += letter
             enigma.update_wheels(encrypted_count)
-            print(encrypted_count)
         self.wheels = original_wheels.copy()
         return encrypted_message
 
@@ -46,7 +45,6 @@ class Enigma:
             self.wheels[W1] = 1
         else:
             self.wheels[W1] += 1
-        print("W1:" + str(self.wheels[W1]))
         # update W2
         if encrypted_count % 2 == 0:
             self.wheels[W2] *= 2
@@ -58,7 +56,9 @@ class Enigma:
         elif encrypted_count % W3_UPDATE_FLAG_2 == 0:
             self.wheels[W3] = W3_UPDATE_VALUE_2
         else:
-            self.whe    els[W3] = 0
+            self.wheels[W3] = 0
+            
+            
     def encrypt_lowercase_letter(self, c):
         reversed_hash_map = {value: key for key, value in self.hash_map.items()}
         i = self.hash_map[c]
