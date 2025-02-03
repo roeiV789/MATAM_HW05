@@ -119,25 +119,27 @@ def get_params():
     
     
 def terminate(message):
-    print(message)
+    sys.stderr.write(message)
     exit(1)
 
 
 # ==================== SCRIPT ==================== #
 
 if __name__ == "__main__":
-        config_file, input_path, output_path = get_params()
+    config_file, input_path, output_path = get_params()
+    try:
+        enigma = load_enigma_from_path(config_file)
+        with open(input_path, 'r') as input:
+            encrypted_str = ""
+            for line in input:
+                encrypted_str += enigma.encrypt(line)
+    except Exception:
+        terminate(SCRIPT_EXIT_MESSEGE)
+    if output_path == sys.stdout:
+        print(encrypted_str)
+    else:
         try:
-            enigma = load_enigma_from_path(config_file)
-            with open(input_path, 'r') as input:
-                encrypted_str = enigma.encrypt(input.read())
+            with open(output_path, 'w') as output:
+                output.write(encrypted_str)
         except Exception:
             terminate(SCRIPT_EXIT_MESSEGE)
-        if output_path == sys.stdout:
-            print(encrypted_str)
-        else:
-            try:
-                with open(output_path, 'w') as output:
-                    output.write(encrypted_str)
-            except Exception:
-                terminate(SCRIPT_EXIT_MESSEGE)
